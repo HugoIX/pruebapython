@@ -7,35 +7,35 @@ inventory = [
         "name": "El Alquimista",
         "author": "Paulo Coelho",
         "category": "novela",
-        "price": 25.00,
+        "price": 25000,
         "stock": 15,
     },
     {
         "name": "Obra Negra",
         "author": "Gonzalo Arango",
         "category": "poesia",
-        "price": 55.00,
+        "price": 55000,
         "stock": 6,
     },
     {
         "name": "Narraciones Extraordinarias",
         "author": "Edgar Allan Poe",
         "category": "suspenso",
-        "price": 35.00,
+        "price": 35000,
         "stock": 10,
     },
     {
         "name": "El Arte de la Guerra",
         "author": "Sun Tzu",
         "category": "literatura",
-        "price": 20.00,
+        "price": 20000,
         "stock": 8,
     },
     {
         "name": "La Iliada",
         "author": "Homero",
         "category": "clasica",
-        "price": 15.00,
+        "price": 15000,
         "stock": 7,
     }
 ]
@@ -191,13 +191,7 @@ def main_menu():
 
             elif option == 8:
                 services.generate_reports(inventory, sales)
-                return_to_menu()
-
-            elif option == 8:
-                print("REPORTE Y ESTADISTICAS")
-                services.generate_reports(inventory, sales)
-                return_to_menu()
-                
+                return_to_menu()   
 
             elif option == 9:
                 print("Saliendo del programa. Hasta luego")
