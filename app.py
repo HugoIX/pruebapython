@@ -127,9 +127,9 @@ def main_menu():
                     products_found = services.search_author(inventory, author_name) 
 
                     if products_found:
-                        print("Producto no encontrado:")
+                        print("Libros encontrados del autor:") #Corregido porque decia "producto no encontrado"
                         for prod in products_found:
-                             print(f"Nombre: {prod['name']} | Autor: {prod['author']} | Precio: ${prod['price']:.2f} | Cantidad: {prod['stock']} \n")
+                            print(f"Nombre: {prod['name']} | Autor: {prod['author']} | Precio: ${prod['price']:.2f} | Cantidad: {prod['stock']} \n")
                     else:
                         print("Autor no encontrado.")
                 return_to_menu()
@@ -143,11 +143,11 @@ def main_menu():
                     products_found = services.search_category(inventory, search_cat) 
 
                     if products_found:
-                        print("Porductos no encontrados en esta categoria:")
+                        print("Libros encontrados en esta categoria:") # Corregido porque decia "Productos no encontrados en esta categoria"
                         for prod in products_found:
-                             print(f"Nombre: {prod['name']} | Autor: {prod['author']} | Categoria: {prod['category']} | Precio: ${prod['price']:.2f} | Cantidad: {prod['stock']} \n")
+                            print(f"Nombre: {prod['name']} | Autor: {prod['author']} | Categoria: {prod['category']} | Precio: ${prod['price']:.2f} | Cantidad: {prod['stock']} \n")
                     else:
-                        print("Categoria no disponible.")
+                        print("No se encontraron libros en esta categoria.") #corregimos el mensaje que decia "categoria no disponible"
                 return_to_menu()
 
             elif option == 6:
@@ -162,18 +162,36 @@ def main_menu():
 
                         if quantity <= 0:
                             print("Cantidad debe ser superior a 0.")
-                            continue
-                        client_name = input("Ingrese el nombre del cliente: ").strip()
+                            #continue #no debe ir, para que vuelva a preguntar la cantidad en caso de un error de digitación
 
-                        sale_date = input("Ingrese fecha (AAAA-MM-DD, dejar en blanco para hoy): ") or services.get_current_date()
+                        elif quantity > product['stock']:
+                            print(f"ERROR: No hay suficiente stock. Disponible: {product['stock']}")
+                            # Esta parte del codigo es una segunda validacion en caso de que el stock si esté y sea superior a 0 para poder continuar con la venta
 
-                        discount = 0.0 
+                            #####################################################
 
-                        result = services.register_sale(inventory, sales, product_name, quantity, client_name, discount, sale_date)
-                        print(result)
+                        else: # Solo si la cantidad es válida y hay stock
+                            client_name = input("Ingrese el nombre del cliente: ").strip()
+                            sale_date = input("Ingrese fecha (AAAA-MM-DD, dejar en blanco para hoy): ") or services.get_current_date()
+                            discount = 0.0 # Valor fijo, como lo tenías.
+                            
+                            result = services.register_sale(inventory, sales, product_name, quantity, client_name, discount, sale_date)
+                            print(result)
 
-                    except ValueError as e:
-                        print(f"ERROR: {e}")
+                        # client_name = input("Ingrese el nombre del cliente: ").strip()
+
+                        # sale_date = input("Ingrese fecha (AAAA-MM-DD, dejar en blanco para hoy): ") or services.get_current_date()
+
+                        # discount = 0.0 
+
+                        # result = services.register_sale(inventory, sales, product_name, quantity, client_name, discount, sale_date)
+                        # print(result)
+
+                    # except ValueError as e:
+                    #     print(f"ERROR: {e}")
+                        
+                    except ValueError:
+                        print(f"ERROR: La cantidad debe ser un número entero válido.")
 
                 else:
                     print("Producto no encontrado en inventario.")

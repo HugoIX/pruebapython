@@ -64,7 +64,7 @@ def delete_product(inventory_list, name):
 def get_current_date():
     return datetime.date.today().isoformat()
 
-def register_sale(inventory_list, sales_list, product_name, quantity, client_name, discount_rate):
+def register_sale(inventory_list, sales_list, product_name, quantity, client_name, discount_rate, sale_date): # se corrige que se declaraban 6 funciones y se llamaban 7, se agrego el "sale_date" y se logra corregir. 
 
     product = search_product(inventory_list, product_name)
 
@@ -91,7 +91,7 @@ def register_sale(inventory_list, sales_list, product_name, quantity, client_nam
         "price_per_item_gross": product["price"],
         "discount_applied": discount_rate,
         "total_sale_net": total_sale_net,
-        "date": get_current_date()
+        "date": sale_date #Se soluciona el proceso de llamar la fecha de venta y no el get.datetime()
     }
     sales_list.append(sale_record)
     return f"Venta registrada con éxito. Total neto: ${total_sale_net:.2f}"
@@ -113,7 +113,7 @@ def generate_reports(inventory_list, sales_list):
     net_income = net_income_calc(sales_list)
 
     print(f"total ganancias (antes de descuentos): ${gross_income:,.2f}")
-    print(f"Total neto (antes de descuentos): ${net_income:,.2f}")
+    print(f"Total neto: ${net_income:,.2f}")
 
     # 2. Generate report of total sales grouped by author
     sales_by_author = {}
