@@ -123,7 +123,7 @@ def generate_reports(inventory_list, sales_list):
             sales_by_author[author] = 0
         sales_by_author[author] += sale['total_sale_net']
     
-    print("Total de ventas por autor(Valor Neto):")
+    print("Total de ventas por autor(Valor Neto): ")
     for author, sales_amount in sales_by_author.items():
         print(f" - {author}: ${sales_amount:,.2f}")
 

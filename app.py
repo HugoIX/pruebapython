@@ -150,8 +150,57 @@ def main_menu():
                         print("No se encontraron libros en esta categoria.") #corregimos el mensaje que decia "categoria no disponible"
                 return_to_menu()
 
+            # elif option == 6:
+            #     print("\REGISTRAR VENTA")
+            #     product_name = input("Ingrese el titulo a vender: ").strip()
+            #     product = services.search_product(inventory, product_name)
+                
+            #     if product: 
+            #         print(f"Titulo seleccionado: {product['name']} | Disponible: {product['stock']}")
+            #         try:
+            #             quantity = int(input("Ingrese la cantidad a vender: ").strip())
+
+            #             if quantity <= 0:
+            #                 print("Cantidad debe ser superior a 0.")
+            #                 #continue #no debe ir, para que vuelva a preguntar la cantidad en caso de un error de digitación
+
+            #             elif quantity > product['stock']:
+            #                 print(f"ERROR: No hay suficiente stock. Disponible: {product['stock']}")
+            #                 # Esta parte del codigo es una segunda validacion en caso de que el stock si esté y sea superior a 0 para poder continuar con la venta
+
+            #                 #####################################################
+
+            #             else: # Solo si la cantidad es válida y hay stock
+            #                 client_name = input("Ingrese el nombre del cliente: ").strip()
+            #                 sale_date = input("Ingrese fecha (AAAA-MM-DD, dejar en blanco para hoy): ") or services.get_current_date()
+            #                 discount = 0.0 
+                            
+            #                 result = services.register_sale(inventory, sales, product_name, quantity, client_name, discount, sale_date)
+            #                 print(result)
+
+            #             # client_name = input("Ingrese el nombre del cliente: ").strip()
+
+            #             # sale_date = input("Ingrese fecha (AAAA-MM-DD, dejar en blanco para hoy): ") or services.get_current_date()
+
+            #             # discount = 0.0 
+
+            #             # result = services.register_sale(inventory, sales, product_name, quantity, client_name, discount, sale_date)
+            #             # print(result)
+
+            #         # except ValueError as e:
+            #         #     print(f"ERROR: {e}")
+                        
+            #         except ValueError:
+            #             print(f"ERROR: La cantidad debe ser un número entero válido.")
+
+            #     else:
+            #         print("Producto no encontrado en inventario.")
+            #     return_to_menu()
+
+            # app.py - Opción 6 (SIMPLIFICADA)
+
             elif option == 6:
-                print("\REGISTRAR VENTA")
+                print("REGISTRAR VENTA")
                 product_name = input("Ingrese el titulo a vender: ").strip()
                 product = services.search_product(inventory, product_name)
                 
@@ -159,42 +208,25 @@ def main_menu():
                     print(f"Titulo seleccionado: {product['name']} | Disponible: {product['stock']}")
                     try:
                         quantity = int(input("Ingrese la cantidad a vender: ").strip())
-
+                        
                         if quantity <= 0:
                             print("Cantidad debe ser superior a 0.")
-                            #continue #no debe ir, para que vuelva a preguntar la cantidad en caso de un error de digitación
-
-                        elif quantity > product['stock']:
-                            print(f"ERROR: No hay suficiente stock. Disponible: {product['stock']}")
-                            # Esta parte del codigo es una segunda validacion en caso de que el stock si esté y sea superior a 0 para poder continuar con la venta
-
-                            #####################################################
-
-                        else: # Solo si la cantidad es válida y hay stock
+                        
+                        else: # Si la cantidad es un número válido (> 0), pasamos a services.py
                             client_name = input("Ingrese el nombre del cliente: ").strip()
                             sale_date = input("Ingrese fecha (AAAA-MM-DD, dejar en blanco para hoy): ") or services.get_current_date()
-                            discount = 0.0 # Valor fijo, como lo tenías.
+                            discount = 0.0
                             
+                            # ¡Solo llamamos a la función! Ella se encarga de la validación de stock.
                             result = services.register_sale(inventory, sales, product_name, quantity, client_name, discount, sale_date)
-                            print(result)
+                            print(result) # Imprimirá "Venta registrada con éxito" o el mensaje de error de stock de services.py.
 
-                        # client_name = input("Ingrese el nombre del cliente: ").strip()
-
-                        # sale_date = input("Ingrese fecha (AAAA-MM-DD, dejar en blanco para hoy): ") or services.get_current_date()
-
-                        # discount = 0.0 
-
-                        # result = services.register_sale(inventory, sales, product_name, quantity, client_name, discount, sale_date)
-                        # print(result)
-
-                    # except ValueError as e:
-                    #     print(f"ERROR: {e}")
-                        
                     except ValueError:
                         print(f"ERROR: La cantidad debe ser un número entero válido.")
 
                 else:
                     print("Producto no encontrado en inventario.")
+                
                 return_to_menu()
 
             elif option == 7:
